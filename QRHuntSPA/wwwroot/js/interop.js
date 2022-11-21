@@ -64,3 +64,10 @@ window.realmShim_getCheckins = async function() {
     console.log(result);
     return result;
 }
+
+window.realmShim_getLeaderboardGraph = async function() {
+    await login();
+    var result = await client.callFunction("getLeaderboardGraph");
+    console.log(result);
+    return result;
+}

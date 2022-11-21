@@ -1,13 +1,50 @@
 ﻿@page "/List"
-
+@page "/Leaderboard"
+@inject IJSRuntime JSRuntime;
+@using ApexCharts;
 
 <PageTitle>Leaderboard</PageTitle>
 
 <h1>Leaderboard</h1>
-<h3><a href="https://charts.mongodb.com/charts-grabosky-egkqb/embed/charts?id=63799c8b-4161-4d5a-8640-33c2a8ac6f71&maxDataAge=60&theme=light&autoRefresh=true" target="_blank">Open In New Tab</a></h3>
 
-<iframe 
-    style="background: #FFFFFF;border: none;" 
-    width="85%" 
-    height="85%" 
-    src="https://charts.mongodb.com/charts-grabosky-egkqb/embed/charts?id=63799c8b-4161-4d5a-8640-33c2a8ac6f71&maxDataAge=60&theme=light&autoRefresh=true"></iframe>
+@if(KVPs != null) {
+    <ApexChart TItem="DataModels.GenericKVP"
+           Title="Total Checkin Points - Top 10"
+           Options=options>
+
+    <ApexPointSeries TItem="DataModels.GenericKVP"
+                Items="KVPs"
+                Name="Points"
+                XValue="@(e => e.Key)"
+                SeriesType="SeriesType.Bar"
+                YAggregate="@(e => e.Sum(e => e.Value))"
+                OrderByDescending="e=>e.Y"
+                Color="#FFD500"/>
+
+</ApexChart>
+}
+
+@code {
+    private string userId = "";
+    private List<DataModels.GenericKVP> KVPs = null; 
+    private ApexChartOptions<DataModels.GenericKVP> options;
+   
+
+    protected override async Task OnInitializedAsync() {
+        await JSRuntime.InvokeAsync<string>("login");
+        userId = await JSRuntime.InvokeAsync<string>("getCurrentUserId");
+
+        options = new ApexChartOptions<DataModels.GenericKVP>
+        {
+            PlotOptions = new PlotOptions
+            {
+                Bar = new PlotOptionsBar
+                {
+                    Horizontal = true
+                }
+            }
+        };
+
+        KVPs = await JSRuntime.InvokeAsync<List<DataModels.GenericKVP>>("realmShim_getLeaderboardGraph");
+    }
+}
