@@ -1,0 +1,33 @@
+
+<div class="card">
+  <div class="card-body">
+    <div class="hiblock" style="background-color: var(@colbg);color:@colfg">@Item.Points</div>
+    <h5 class="card-title">@Item.Title</h5>
+    <p class="card-text">@Item.Note</p>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public DataModels.Location Item {get;set;}
+
+    private string colbg = "--cmg-main";
+    private string colfg = "#ffffff";
+
+    protected override async Task OnInitializedAsync() {
+        if(Item.Points >= 10) {
+            colbg = "--cmg-alt";
+            colfg = "#000000";
+        } else if(Item.Points > 5) {
+            colbg = "--cmg-step4";
+            colfg = "#000000";
+        } 
+        else if(Item.Points > 1) {
+            colbg = "--cmg-step2";
+            colfg = "#ffffff";
+        } else {
+            colbg = "--cmg-main";
+            colfg = "#ffffff";
+        }
+    }
+}

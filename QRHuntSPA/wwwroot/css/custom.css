@@ -1,0 +1,91 @@
+:root {
+    --cmg-main: #2D5035;
+    --cmg-alt: #FFD500;
+    --cmg-step2: #4a7439;
+    --cmg-step3: #779833;
+    --cmg-step4: #b4b921;
+    --cmg-light: #ffffff;
+    --cmg-globalsize: 3rem;
+    --cmg-dark: #2e2e2e;
+}
+
+@keyframes ctr_spin_rotation {
+    from { transform: rotateY(0deg) }
+    to { transform: rotateY(360deg) }
+}
+
+.aniloader {
+    animation: ctr_spin_rotation 1s infinite linear;
+    display:block;
+    background-color: var(--cmg-light);
+    padding:50px;
+    text-align: center;
+    height:70vh;
+    margin-top: 10vh;
+}
+
+body {
+    background-color: var(--cmg-step2);
+}
+
+.app { 
+    display: grid;
+    place-items: center;
+    width: 100%;
+    resize: both;
+    overflow:scroll;
+    height:100vh;
+}
+
+.page {
+    padding-top: 5vh !important;
+    margin-top:5vh;
+    text-align:center;
+    overflow: scroll;
+    padding:10px;
+    vertical-align: middle;
+    width: 90vw;
+    margin-left: 5vw;
+    height:90vh;
+    background-color: var(--cmg-light);
+    border-radius: 5%;
+}
+
+.loader {
+    margin-top:5vh;
+    text-align:center;
+    overflow: hidden;
+    padding:10px;
+    vertical-align: middle;
+    width: 90vw;
+    margin-left: 5vw;
+    height:90vh;
+    background-color: var(--cmg-light);
+    place-items: center;    
+    border-radius: 5%;
+}
+
+h1 {
+    color:var(--cmg-main)
+}
+
+h2 {
+    color:var(--cmg-step2)
+}
+
+.bg-cmg {
+    background-color:var(--cmg-main) ;
+    padding-left: 5vw;
+}
+
+.btn-success {
+    background-color: var(--cmg-alt);
+    border-color: var(--cmg-alt);
+    color: var(--cmg-dark);
+}
+
+input {
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}

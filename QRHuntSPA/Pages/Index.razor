@@ -1,0 +1,28 @@
+﻿@page "/"
+@page "/Home"
+@inject IJSRuntime JSRuntime;
+
+<PageTitle>Homepage</PageTitle>
+
+<h1>Point Locations</h1>
+
+@if(allLoc != null) {
+    @foreach (var l in allLoc) {
+        <HuntItem Item=@l />
+    }
+}
+
+
+
+@code {
+    private List<DataModels.Location> allLoc = null;
+    private string userId = "";
+   
+
+    protected override async Task OnInitializedAsync() {
+        await JSRuntime.InvokeAsync<string>("login");
+        userId = await JSRuntime.InvokeAsync<string>("getCurrentUserId");
+
+        allLoc = await JSRuntime.InvokeAsync<List<DataModels.Location>>("realmShim_getLocations");
+    }
+}

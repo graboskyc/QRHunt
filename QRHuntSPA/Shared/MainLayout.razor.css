@@ -1,0 +1,13 @@
+.nav {
+    text-align: center;
+}
+
+.btn-spacing {
+    color: var(--cmg-alt) !important;
+    background-color: var(--cmg-main) !important;
+    border-color: var(--cmg-main) !important;
+    font-size: 2rem;
+    margin: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}

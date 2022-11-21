@@ -1,0 +1,92 @@
+﻿@page "/Checkin"
+@page "/Checkin/{Secret}"
+@inject IJSRuntime JSRuntime;
+@using BlafettisLib;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<PageTitle>Check In</PageTitle>
+
+<h1>Check In</h1>
+
+<h2>User ID</h2>
+<input type="text" @bind="userId" class="form-control form-control-lg" disabled readonly />
+
+<h2>Name</h2>
+<input type="text" @bind="name" class="form-control form-control-lg" />
+
+<h2>Secret</h2>
+<input type="text" @bind="Secret" class="form-control form-control-lg" />
+
+@if(error){
+    <div class="alert alert-danger" role="alert">
+        <h3><i>Your secret code was invalid.</i></h3>
+    </div>
+}
+
+@if(success){
+    <div class="alert alert-success" role="alert">
+        @if(loc != null) {
+            @if(loc.Points == 0 || loc.Points == null) {
+                <h3><i>You already submitted this secret code.</i></h3>
+            } else {
+                <h3><i>Your just got @loc.Points points!</i></h3>
+            }
+        } else {
+            <h3><i>Your secret code was accepted</i></h3>
+        }
+    </div>
+}
+
+@if(Secret == null) {
+    <button class="btn btn-lg btn-secondary" style="width: 80%;">
+        You must first enter the secret code
+    </button>
+} else {
+    <button @onclick="Save" class="btn btn-lg btn-success" style="width: 80%;">
+        Save
+        <Blafettis @ref="blafettis" />
+    </button>
+}
+
+@code {
+    [Parameter]
+    public string Secret {get; set;}
+    
+    protected Blafettis blafettis;
+
+    private DataModels.Checkin ci = null;
+    private DataModels.Location loc = null;
+    private string name = "";
+    private string userId = "";
+    private bool error = false;
+    private bool success = false;
+
+    protected override async Task OnInitializedAsync() {
+        await JSRuntime.InvokeAsync<string>("login");
+        userId = await JSRuntime.InvokeAsync<string>("getCurrentUserId");
+            
+        name = await localStorage.GetItemAsync<string>("name");
+    }
+
+    private async Task Save() {
+        await localStorage.SetItemAsync("name", name);
+        
+        loc =  await JSRuntime.InvokeAsync<DataModels.Location>("realmShim_getLocation", Secret);
+
+        if(loc != null) {
+            ci = new DataModels.Checkin();
+            ci.Owner = userId;
+            ci.Name = name;
+            loc.Secret = Secret;
+            ci.Location = loc;
+
+            await JSRuntime.InvokeVoidAsync("realmShim_setCheckin", ci);
+            error = false;
+            success = true;
+            blafettis.RaiseConfetti();
+        } else {
+            error = true;
+            success = false;
+        }
+    }
+}

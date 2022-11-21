@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-cmg">
+      <a class="navbar-brand" href="#">FFPC</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/Home"><span class="oi oi-home"></span> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/List"><span class="oi oi-bar-chart"></span> Standings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Checkin"><span class="oi oi-check"></span> Check In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://fieldfamilypubcrawl.org" target="_blank"><span class="oi oi-globe"></span> FFPC Website</a>
+          </li>
+        </ul>
+      </div>
+</nav>
+    
+<div class="page">
+    @Body
+</div>
