@@ -1,0 +1,15 @@
+{
+    "collection": "checkin",
+    "database": "qrhunt",
+    "roles": [
+        {
+            "name": "rwyourself",
+            "apply_when": {
+                "owner": "%%user.id"
+            },
+            "read": true,
+            "write": true,
+            "insert": true
+        }
+    ]
+}

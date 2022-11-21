@@ -1,0 +1,7 @@
+{
+    "enabled": true,
+    "custom_domain": "ffpc.mobi",
+    "app_default_domain": "ffpc-tcjrg.mongodbstitch.com",
+    "default_error_path": "/index.html",
+    "default_error_code": "200"
+}

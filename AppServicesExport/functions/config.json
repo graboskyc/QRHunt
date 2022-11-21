@@ -1,0 +1,32 @@
+[
+    {
+        "name": "getLocations",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getCheckins",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "setCheckin",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getLocation",
+        "private": false
+    },
+    {
+        "name": "getLeaderboard",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "getLeaderboardGraph",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    }
+]
